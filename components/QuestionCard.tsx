@@ -9,8 +9,11 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Tooltip,
+  Grid,
+  GridItem,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
-import { questions } from "@/data";
 import React from "react";
 import { Question } from "@/types";
 import { cloneDeep } from "lodash";
@@ -39,9 +42,9 @@ const QuestionCard = ({
     () => questions.reduce((score: number, { point }) => score + point, 0),
     [questions]
   );
-  const handleSlider = React.useCallback(
+  const handleChecked = React.useCallback(
     (val: number) => {
-      if (typeof val === "number" && val >= 1 && val <= 5) {
+      if (val >= 1 && val <= 5) {
         const copy = cloneDeep(questions);
         copy[selectedIndex].point = val;
         setQuestions(copy);
@@ -59,10 +62,10 @@ const QuestionCard = ({
           <Heading size="xs" textTransform="uppercase">
             {`Question: ${id}`}
           </Heading>
-          <Text pt="2" fontSize="sm">
+          <Text pt="2" fontSize="md">
             {question}
           </Text>
-          <Slider
+          {/* <Slider
             aria-label="slider-ex-6"
             onChange={handleSlider}
             onMouseEnter={() => setShowTooltip(true)}
@@ -84,7 +87,81 @@ const QuestionCard = ({
             >
               <SliderThumb />
             </Tooltip>
-          </Slider>
+          </Slider> */}
+          <RadioGroup>
+            <Grid
+              templateRows="repeat(3, 1fr)"
+              templateColumns="repeat(2, 1fr)"
+              gap={4}
+              padding={4}
+            >
+              <GridItem>
+                <Radio
+                  colorScheme="gray"
+                  isChecked={point === 1}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      handleChecked(1);
+                    }
+                  }}
+                >
+                  1 - 极度不赞同
+                </Radio>
+              </GridItem>
+              <GridItem>
+                <Radio
+                  colorScheme="gray"
+                  isChecked={point === 2}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      handleChecked(2);
+                    }
+                  }}
+                >
+                  2 - 不赞同
+                </Radio>
+              </GridItem>
+              <GridItem>
+                <Radio
+                  colorScheme="gray"
+                  isChecked={point === 3}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      handleChecked(3);
+                    }
+                  }}
+                >
+                  3 - 有时
+                </Radio>
+              </GridItem>
+              <GridItem>
+                <Radio
+                  colorScheme="gray"
+                  isChecked={point === 4}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      handleChecked(4);
+                    }
+                  }}
+                >
+                  4 - 赞同
+                </Radio>
+              </GridItem>
+              <GridItem>
+                <Radio
+                  colorScheme="gray"
+                  isChecked={point === 5}
+                  onChange={(event) => {
+                    if (event.target.checked) {
+                      handleChecked(5);
+                    }
+                  }}
+                >
+                  5 - 极度赞同
+                </Radio>
+              </GridItem>
+            </Grid>
+          </RadioGroup>
         </Stack>
       </CardBody>
     </Card>

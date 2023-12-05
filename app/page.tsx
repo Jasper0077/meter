@@ -11,11 +11,12 @@ import { questions as questionsData } from "@/data";
 import QuestionCard from "@/components/QuestionCard";
 import React from "react";
 import { Question } from "@/types";
+import { atom, useAtom } from "jotai";
+import { questionsAtom } from "@/store";
 
 export default function Home() {
   const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
-  const [questions, setQuestions] =
-    React.useState<Array<Question>>(questionsData);
+  const [questions, setQuestions] = useAtom(questionsAtom);
 
   React.useEffect(() => {
     console.log(selectedIndex);
@@ -29,13 +30,12 @@ export default function Home() {
     <ChakraProvider>
       <main>
         <Grid
-          h="200px"
           templateRows="repeat(4, 1fr)"
           templateColumns="repeat(3, 1fr)"
           gap={4}
           padding={4}
         >
-          <GridItem rowSpan={1} colSpan={3}>
+          <GridItem rowSpan={1} colSpan={3} mt="25%">
             <QuestionCard
               questions={questions}
               setQuestions={setQuestions}
