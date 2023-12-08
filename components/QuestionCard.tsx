@@ -9,10 +9,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Tooltip,
-  Grid,
-  GridItem,
-  Radio,
-  RadioGroup,
+  SliderMark,
 } from "@chakra-ui/react";
 import React from "react";
 import { Question } from "@/types";
@@ -25,6 +22,12 @@ interface Props {
   selectedIndex: number;
   setSelectedIndex: (selectedIndex: number) => void;
 }
+
+const labelStyles = {
+  mt: "2",
+  ml: "-2.5",
+  fontSize: "sm",
+};
 
 const QuestionCard = ({
   questions,
@@ -42,16 +45,12 @@ const QuestionCard = ({
     () => questions.reduce((score: number, { point }) => score + point, 0),
     [questions]
   );
-  const handleChecked = React.useCallback(
-    (val: number) => {
-      if (val >= 1 && val <= 5) {
-        const copy = cloneDeep(questions);
-        copy[selectedIndex].point = val;
-        setQuestions(copy);
-      }
-    },
-    [selectedIndex, questions]
-  );
+
+  const handleSlider = (value: number) => {
+    const updated = cloneDeep(questions);
+    updated[selectedIndex].point = value;
+    setQuestions(updated);
+  };
 
   if (selectedIndex < 0) return <Text>Start</Text>;
   if (!id || !question || !point) return <Scoreboard score={score} />;
@@ -65,7 +64,7 @@ const QuestionCard = ({
           <Text pt="2" fontSize="md">
             {question}
           </Text>
-          {/* <Slider
+          <Slider
             aria-label="slider-ex-6"
             onChange={handleSlider}
             onMouseEnter={() => setShowTooltip(true)}
@@ -74,6 +73,21 @@ const QuestionCard = ({
             max={5}
             min={1}
           >
+            <SliderMark value={1} {...labelStyles}>
+              1
+            </SliderMark>
+            <SliderMark value={2} {...labelStyles}>
+              2
+            </SliderMark>
+            <SliderMark value={3} {...labelStyles}>
+              3
+            </SliderMark>
+            <SliderMark value={4} {...labelStyles}>
+              4
+            </SliderMark>
+            <SliderMark value={5} {...labelStyles}>
+              5
+            </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
@@ -87,81 +101,7 @@ const QuestionCard = ({
             >
               <SliderThumb />
             </Tooltip>
-          </Slider> */}
-          <RadioGroup>
-            <Grid
-              templateRows="repeat(3, 1fr)"
-              templateColumns="repeat(2, 1fr)"
-              gap={4}
-              padding={4}
-            >
-              <GridItem>
-                <Radio
-                  colorScheme="gray"
-                  isChecked={point === 1}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      handleChecked(1);
-                    }
-                  }}
-                >
-                  1 - 极度不赞同
-                </Radio>
-              </GridItem>
-              <GridItem>
-                <Radio
-                  colorScheme="gray"
-                  isChecked={point === 2}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      handleChecked(2);
-                    }
-                  }}
-                >
-                  2 - 不赞同
-                </Radio>
-              </GridItem>
-              <GridItem>
-                <Radio
-                  colorScheme="gray"
-                  isChecked={point === 3}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      handleChecked(3);
-                    }
-                  }}
-                >
-                  3 - 有时
-                </Radio>
-              </GridItem>
-              <GridItem>
-                <Radio
-                  colorScheme="gray"
-                  isChecked={point === 4}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      handleChecked(4);
-                    }
-                  }}
-                >
-                  4 - 赞同
-                </Radio>
-              </GridItem>
-              <GridItem>
-                <Radio
-                  colorScheme="gray"
-                  isChecked={point === 5}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      handleChecked(5);
-                    }
-                  }}
-                >
-                  5 - 极度赞同
-                </Radio>
-              </GridItem>
-            </Grid>
-          </RadioGroup>
+          </Slider>
         </Stack>
       </CardBody>
     </Card>

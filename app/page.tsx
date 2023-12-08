@@ -30,8 +30,8 @@ export default function Home() {
     <ChakraProvider>
       <main>
         <Grid
-          templateRows="repeat(4, 1fr)"
-          templateColumns="repeat(3, 1fr)"
+          templateRows="repeat(4, 0.25fr)"
+          templateColumns="repeat(3, 0.33fr)"
           gap={4}
           padding={4}
         >
