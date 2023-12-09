@@ -13,25 +13,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import React from "react";
-import { DoubleQuotes } from "./svg/DoubleQuotes";
-
-/* <Stack
-      display="flex"
-      direction="row"
-      spacing={4}
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Text fontSize={isDesktop ? "lg" : "sm"}>Your score: </Text>
-      <CircularProgress
-        value={score}
-        color={
-          score >= 80 ? "green.400" : score >= 50 ? "orange.400" : "red.400"
-        }
-      >
-        <CircularProgressLabel>{score}%</CircularProgressLabel>
-      </CircularProgress>
-    </Stack> */
+import { DoubleQuotes } from "./svgs/DoubleQuotes";
 
 const renderText = (score: number) => {
   if (score >= 80) {
