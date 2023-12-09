@@ -28,16 +28,16 @@ const FormRadioGroup = ({
     [selectedIndex, questions]
   );
   return (
-    <RadioGroup>
+    <RadioGroup mt={4}>
       <Grid
         templateRows="repeat(3, 1fr)"
         templateColumns="repeat(2, 1fr)"
-        gap={4}
-        padding={4}
+        gap={8}
       >
         <GridItem>
           <Radio
             colorScheme="gray"
+            borderColor="black"
             isChecked={point === 1}
             onChange={(event) => {
               if (event.target.checked) {
@@ -51,6 +51,7 @@ const FormRadioGroup = ({
         <GridItem>
           <Radio
             colorScheme="gray"
+            borderColor="black"
             isChecked={point === 2}
             onChange={(event) => {
               if (event.target.checked) {
@@ -64,6 +65,7 @@ const FormRadioGroup = ({
         <GridItem>
           <Radio
             colorScheme="gray"
+            borderColor="black"
             isChecked={point === 3}
             onChange={(event) => {
               if (event.target.checked) {
@@ -77,6 +79,7 @@ const FormRadioGroup = ({
         <GridItem>
           <Radio
             colorScheme="gray"
+            borderColor="black"
             isChecked={point === 4}
             onChange={(event) => {
               if (event.target.checked) {
@@ -90,6 +93,7 @@ const FormRadioGroup = ({
         <GridItem>
           <Radio
             colorScheme="gray"
+            borderColor="black"
             isChecked={point === 5}
             onChange={(event) => {
               if (event.target.checked) {

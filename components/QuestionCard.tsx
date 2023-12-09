@@ -1,20 +1,9 @@
-import {
-  Card,
-  Heading,
-  CardBody,
-  Stack,
-  Text,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Tooltip,
-  SliderMark,
-} from "@chakra-ui/react";
+import { Card, Heading, CardBody, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { Question } from "@/types";
 import { cloneDeep } from "lodash";
 import Scoreboard from "./Scoreboard";
+import RadioGroup from "./form/RadioGroup";
 
 interface Props {
   questions: Array<Question>;
@@ -29,13 +18,7 @@ const labelStyles = {
   fontSize: "sm",
 };
 
-const QuestionCard = ({
-  questions,
-  setQuestions,
-  selectedIndex,
-  setSelectedIndex,
-}: Props) => {
-  const [showTooltip, setShowTooltip] = React.useState<boolean>(false);
+const QuestionCard = ({ questions, setQuestions, selectedIndex }: Props) => {
   const { id, question, point } = React.useMemo(() => {
     if (selectedIndex >= 0 && selectedIndex <= 19)
       return questions[selectedIndex];
@@ -46,25 +29,24 @@ const QuestionCard = ({
     [questions]
   );
 
-  const handleSlider = (value: number) => {
-    const updated = cloneDeep(questions);
-    updated[selectedIndex].point = value;
-    setQuestions(updated);
-  };
+  // const handleSlider = (value: number) => {
+  //   const updated = cloneDeep(questions);
+  //   updated[selectedIndex].point = value;
+  //   setQuestions(updated);
+  // };
 
-  if (selectedIndex < 0) return <Text>Start</Text>;
   if (!id || !question || !point) return <Scoreboard score={score} />;
   return (
-    <Card bg="papayawhip" minHeight={150}>
+    <Card bg="papayawhip" minHeight={300}>
       <CardBody>
         <Stack display="flex" alignItems="center" justifyContent="center" p={2}>
           <Heading size="xs" textTransform="uppercase">
             {`Question: ${id}`}
           </Heading>
-          <Text pt="2" fontSize="md">
+          <Text pt="2" fontSize="md" fontWeight="bold">
             {question}
           </Text>
-          <Slider
+          {/* <Slider
             aria-label="slider-ex-6"
             onChange={handleSlider}
             value={point}
@@ -99,7 +81,13 @@ const QuestionCard = ({
             >
               <SliderThumb />
             </Tooltip>
-          </Slider>
+          </Slider> */}
+          <RadioGroup
+            selectedIndex={selectedIndex}
+            questions={questions}
+            setQuestions={setQuestions}
+            point={point}
+          />
         </Stack>
       </CardBody>
     </Card>

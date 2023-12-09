@@ -13,45 +13,43 @@ import {
 import { useRouter } from "next/navigation";
 import React from "react";
 
+const images = [
+  <Image src="/home.png" width="max-content" height="auto" alt="Home" />,
+  <Image
+    src="/instruction.png"
+    width="max-content"
+    height="auto"
+    alt="Instruction"
+  />,
+];
+
 function Home() {
   const router = useRouter();
+  const [index, setIndex] = React.useState<number>(0);
   return (
-    <Stack display="flex" justifyContent="center" alignItems="center" p={6}>
-      <Tabs variant="line" colorScheme="">
-        <TabList textColor={"white"}>
-          <Tab>Home</Tab>
-          <Tab>Instruction</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <Stack display="flex" justifyContent="center" alignItems="center">
-              <Image
-                src="/home.png"
-                width="max-content"
-                height="auto"
-                alt="Home"
-              />
-            </Stack>
-          </TabPanel>
-          <TabPanel>
-            <Stack
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              direction="column"
-              gap="4"
-            >
-              <Image
-                src="/instruction.png"
-                width="max-content"
-                height="auto"
-                alt="Instruction"
-              />
-              <Button onClick={() => router.push("/questions")}>Start</Button>
-            </Stack>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+    <Stack
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      p={6}
+      spacing={2}
+    >
+      {images[index]}
+      <Stack
+        display="flex"
+        direction={index === 0 ? "row-reverse" : "row"}
+        justifyContent="space-around"
+        alignItems="center"
+      >
+        {index === 1 && <Button onClick={() => setIndex(0)}>Previous</Button>}
+        {index === 0 ? (
+          <Button onClick={() => setIndex(1)} textAlign="right">
+            Next
+          </Button>
+        ) : (
+          <Button onClick={() => router.push("/questions")}>Start</Button>
+        )}
+      </Stack>
     </Stack>
   );
 }

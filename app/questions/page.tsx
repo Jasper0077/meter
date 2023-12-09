@@ -16,20 +16,13 @@ import { useAtom } from "jotai";
 import { questionsAtom } from "@/store";
 import ReactToPrint from "react-to-print";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 export default function Questions() {
+  const router = useRouter();
   const ref = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
   const [questions, setQuestions] = useAtom(questionsAtom);
-  const [print, setPrint] = React.useState<boolean>(false);
-
-  const handleAfterPrint = () => {
-    setPrint(false);
-  };
-
-  React.useEffect(() => {
-    console.log(questions);
-  }, [questions]);
 
   return (
     <Stack divider={<Divider />}>
@@ -51,14 +44,21 @@ export default function Questions() {
           <GridItem colSpan={3} mt={2}>
             <Stack
               display="flex"
-              direction="row"
+              direction={"row"}
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button onClick={() => setSelectedIndex(selectedIndex - 1)}>
-                Previous
-              </Button>
-              <Button onClick={() => setSelectedIndex(selectedIndex + 1)}>
+              {selectedIndex >= 1 ? (
+                <Button onClick={() => setSelectedIndex(selectedIndex - 1)}>
+                  Previous
+                </Button>
+              ) : (
+                <Button onClick={() => router.push("/")}>Home</Button>
+              )}
+              <Button
+                onClick={() => setSelectedIndex(selectedIndex + 1)}
+                textAlign="right"
+              >
                 Next
               </Button>
             </Stack>
@@ -69,11 +69,7 @@ export default function Questions() {
             <ReactToPrint
               bodyClass="print-agreement"
               content={() => ref.current}
-              onBeforePrint={() => setPrint(true)}
-              onAfterPrint={() => setPrint(false)}
-              trigger={() => (
-                <Button onClick={() => setPrint(true)}>Download</Button>
-              )}
+              trigger={() => <Button>Download</Button>}
             />
           </GridItem>
         )}
@@ -93,7 +89,7 @@ export default function Questions() {
           )} - 属灵检测`}</Heading>
           {questions.map(({ question, point }, index) => {
             return (
-              <Stack direction="row" justifyContent="space-between">
+              <Stack direction="row" justifyContent="space-between" key={index}>
                 <Text textAlign="left" fontSize="md">
                   {index + 1}. {" " + question}
                 </Text>
