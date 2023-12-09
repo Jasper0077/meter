@@ -67,8 +67,6 @@ const QuestionCard = ({
           <Slider
             aria-label="slider-ex-6"
             onChange={handleSlider}
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
             value={point}
             max={5}
             min={1}
