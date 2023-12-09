@@ -75,3 +75,9 @@ a {
     color-scheme: dark;
   }
 } */
+
+@media screen {
+  .onlyPrint {
+      display: none;
+  }
+}

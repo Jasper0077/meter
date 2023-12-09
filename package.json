@@ -13,6 +13,9 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@types/date-fns": "^2.6.0",
+    "axios": "^1.6.2",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.12",
     "jotai": "^2.6.0",
     "lodash": "^4.17.21",
@@ -27,6 +30,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
+    "react-to-print": "^2.14.15",
     "typescript": "^5"
   }
 }
