@@ -36,7 +36,7 @@ import { DoubleQuotes } from "./svg/DoubleQuotes";
 const renderText = (score: number) => {
   if (score >= 80) {
     return (
-      <Box>
+      <Box position="relative">
         <DoubleQuotes
           position={"absolute"}
           top="-50px"
@@ -91,7 +91,7 @@ const renderText = (score: number) => {
     );
   }
   return (
-    <Box>
+    <Box position="relative">
       <DoubleQuotes
         position={"absolute"}
         top="-50px"
