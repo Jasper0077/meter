@@ -2,64 +2,58 @@
 
 import {
   Button,
-  ChakraProvider,
-  Grid,
-  GridItem,
+  Image,
   Stack,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
 } from "@chakra-ui/react";
-import { questions as questionsData } from "@/data";
-import QuestionCard from "@/components/QuestionCard";
+import { useRouter } from "next/navigation";
 import React from "react";
-import { Question } from "@/types";
-import { atom, useAtom } from "jotai";
-import { questionsAtom } from "@/store";
 
-export default function Home() {
-  const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
-  const [questions, setQuestions] = useAtom(questionsAtom);
-
-  React.useEffect(() => {
-    console.log(selectedIndex);
-  });
-
-  React.useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
+function Home() {
+  const router = useRouter();
   return (
-    <ChakraProvider>
-      <main>
-        <Grid
-          templateRows="repeat(4, 0.25fr)"
-          templateColumns="repeat(3, 0.33fr)"
-          gap={4}
-          padding={4}
-        >
-          <GridItem rowSpan={1} colSpan={3} mt="25%">
-            <QuestionCard
-              questions={questions}
-              setQuestions={setQuestions}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-            />
-          </GridItem>
-          <GridItem colSpan={3} mt={2}>
+    <Stack display="flex" justifyContent="center" alignItems="center" p={6}>
+      <Tabs variant="line" colorScheme="cyan">
+        <TabList>
+          <Tab>Home</Tab>
+          <Tab>Instruction</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Stack display="flex" justifyContent="center" alignItems="center">
+              <Image
+                src="/home.png"
+                width="max-content"
+                height="auto"
+                alt="Home"
+              />
+            </Stack>
+          </TabPanel>
+          <TabPanel>
             <Stack
               display="flex"
-              direction="row"
-              justifyContent="space-between"
+              justifyContent="center"
               alignItems="center"
+              direction="column"
+              gap="4"
             >
-              <Button onClick={() => setSelectedIndex(selectedIndex - 1)}>
-                Previous
-              </Button>
-              <Button onClick={() => setSelectedIndex(selectedIndex + 1)}>
-                Next
-              </Button>
+              <Image
+                src="/instruction.png"
+                width="max-content"
+                height="auto"
+                alt="Instruction"
+              />
+              <Button onClick={() => router.push("/questions")}>Start</Button>
             </Stack>
-          </GridItem>
-        </Grid>
-      </main>
-    </ChakraProvider>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Stack>
   );
 }
+
+export default Home;
