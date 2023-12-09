@@ -57,7 +57,7 @@ const QuestionCard = ({
   return (
     <Card bg="papayawhip" minHeight={150}>
       <CardBody>
-        <Stack display="flex" alignItems="center" justifyContent="center">
+        <Stack display="flex" alignItems="center" justifyContent="center" p={2}>
           <Heading size="xs" textTransform="uppercase">
             {`Question: ${id}`}
           </Heading>

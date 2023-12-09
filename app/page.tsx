@@ -17,8 +17,8 @@ function Home() {
   const router = useRouter();
   return (
     <Stack display="flex" justifyContent="center" alignItems="center" p={6}>
-      <Tabs variant="line" colorScheme="cyan">
-        <TabList>
+      <Tabs variant="line" colorScheme="">
+        <TabList textColor={"white"}>
           <Tab>Home</Tab>
           <Tab>Instruction</Tab>
         </TabList>
